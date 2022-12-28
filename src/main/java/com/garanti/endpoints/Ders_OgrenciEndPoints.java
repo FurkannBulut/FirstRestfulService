@@ -23,6 +23,13 @@ public class Ders_OgrenciEndPoints {
         return repo.getAll();
     }
     @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Ders_Ogrenci getByIdHeader(@HeaderParam(value = "id")Integer id)
+    {
+        return repo.getById(id);
+    }
+    @GET
     @Path(value = "getById/{id}")
     @Produces(value = MediaType.APPLICATION_JSON)
     public Ders_Ogrenci getByIdPathParam(@PathParam(value = "id") Integer id)
@@ -40,5 +47,17 @@ public class Ders_OgrenciEndPoints {
         repo.save(ders_ogrenci);
         return "Başarı ile kaydedildi.";
     }
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id")Integer id)
+    {
+        // localhost:9090/FirstRestfulService/ders_ogrenci/deleteById
+        if (repo.deleteById(id)){
+            return "Başarı ile silindi.";
 
+        }
+        else {
+            return "Başarı ile silinemedi.";
+        }
+    }
 }

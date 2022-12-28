@@ -24,6 +24,13 @@ public class KonuEndPoints {
         // localhost:9090/FirstRestfulService/konu/getAll
         return repo.getALl();
     }
+    @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Konu getByIdHeader(@HeaderParam(value = "id")Integer id)
+    {
+        return repo.getById(id);
+    }
 
     @GET
     @Path(value = "getById/{id}")
@@ -42,5 +49,18 @@ public class KonuEndPoints {
         // localhost:9090/FirstRestfulService/konu/save
         repo.save(konu);
         return "Başarı ile kaydedildi.";
+    }
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id")Integer id)
+    {
+        // localhost:9090/FirstRestfulService/konu/deleteById
+        if (repo.deleteById(id)){
+            return "Başarı ile silindi.";
+
+        }
+        else {
+            return "Başarı ile silinemedi.";
+        }
     }
 }

@@ -25,6 +25,13 @@ public class DersEndPoints
         return repo.getAll();
     }
     @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Ders getByIdHeader(@HeaderParam(value = "id")Integer id)
+    {
+        return repo.getById(id);
+    }
+    @GET
     @Path(value = "getById/{id}")
     @Produces(value = MediaType.APPLICATION_JSON)
     public Ders getByIdPathParam(@PathParam(value = "id") Integer id)
@@ -41,5 +48,18 @@ public class DersEndPoints
        // localhost:9090/FirstRestfulService/ders/save
         repo.save(ders);
         return "Başarı ile kaydedildi.";
+    }
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id")Integer id)
+    {
+        // localhost:9090/FirstRestfulService/ders/deleteById
+        if (repo.deleteById(id)){
+            return "Başarı ile silindi.";
+
+        }
+        else {
+            return "Başarı ile silinemedi.";
+        }
     }
 }

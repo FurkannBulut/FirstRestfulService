@@ -23,6 +23,13 @@ public class OgrenciEndPoints
         return repo.getAll();
     }
     @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Ogrenci getByIdHeader(@HeaderParam(value = "id")Integer id)
+    {
+        return repo.getById(id);
+    }
+    @GET
     @Path(value = "getById/{id}")
     @Produces(value = MediaType.APPLICATION_JSON)
     public Ogrenci getByIdPathParam(@PathParam(value = "id") Integer id)
@@ -39,5 +46,18 @@ public class OgrenciEndPoints
         // localhost:9090/FirstRestfulService/ogrenci/save
         repo.save(ogrenci);
         return "Başarı ile kaydedildi.";
+    }
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id")Integer id)
+    {
+        // localhost:9090/FirstRestfulService/ogrenci/deleteById
+        if (repo.deleteById(id)){
+            return "Başarı ile silindi.";
+
+        }
+        else {
+            return "Başarı ile silinemedi.";
+        }
     }
 }

@@ -26,6 +26,13 @@ public class OgretmenEndPoints
         // localhost:9090/FirstRestfulService/ogretmen/getAll
         return repo.getAll();
     }
+    @GET
+    @Path(value = "getByIdHeader")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Ogretmen getByIdHeader(@HeaderParam(value = "id")Integer id)
+    {
+        return repo.getById(id);
+    }
 
     @GET
     @Path(value = "getById")
@@ -49,11 +56,26 @@ public class OgretmenEndPoints
     @POST
     @Path(value = "save")
     @Consumes(value = MediaType.APPLICATION_JSON)
+
     public String save(Ogretmen ogretmen)
     {
         // localhost:9090/FirstRestfulService/ogretmen/save
         repo.save(ogretmen);
         return "Başarı ile kaydedildi.";
     }
-    // localhost:9090/FirstRestfulService/ogretmen/deleteById
+    @DELETE
+    @Path(value = "deleteById/{id}")
+    public String deleteById(@PathParam(value = "id")Integer id)
+    {
+        // localhost:9090/FirstRestfulService/ogretmen/deleteById
+        if (repo.deleteById(id)){
+            return "Başarı ile silindi.";
+
+        }
+        else {
+            return "Başarı ile silinemedi.";
+        }
+    }
+
 }
+
